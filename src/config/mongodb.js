@@ -13,7 +13,7 @@ mongoose.connect(url, mongooseOption);
 mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('connected', () => {
-    console.log('Conectado com sucesso ao banco de dados.');
+    console.log('Configuração do MongoDB [STATUS]: Conectado com sucesso ao banco de dados.');
 });
 
 module.exports = mongoose;
