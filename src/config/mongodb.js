@@ -1,4 +1,9 @@
 
+/**
+ * <p> Faz configuração necessária para conectar-se ao MongoDB. </p>
+ * @author Diego Righi
+ */
+
 const mongoose = require('mongoose');
 const url = 'mongodb+srv://user_admin:abcde123456@api-teste-abjhb.mongodb.net/test?retryWrites=true&w=majority';
 

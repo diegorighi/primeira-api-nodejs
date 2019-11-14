@@ -2,7 +2,14 @@ const express = require('../../config/main-express');
 const api = express.Router();
 const User = require('../../model/user');
 const jwt = require('../../config/generate-token');
+//==================================================================
 
+
+/**
+ * <p> Seleciona todos os usuário cadastrados nesta API </p>
+ * 
+ * @author Diego Righi
+ */
 api.get('/', async(req, resp) => {
     try{
         let users = await User.find({});
@@ -12,6 +19,14 @@ api.get('/', async(req, resp) => {
     }
 });
 
+/**
+ * <p> Responsável por cadastrar novo usuário nesta API </p>
+ * <p> A resposta é um JSON contendo os dados do usuário. Exceto sua senha. </p>
+ * <p> [ATENÇÃO] A senha é persistida usando bcrypt. Veja MODEL {@link user}
+ * 
+ * @author Diego Righi
+ * @returns {@link user, @link token}
+ */
 api.post('/', async(req, resp) => {
     const { email, password } = req.body;
     if(!email && !password) return resp.send({ errorMessage : 'Dados de cadastros insuficientes'});

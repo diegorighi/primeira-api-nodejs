@@ -3,7 +3,15 @@ const api = express.Router();
 const User = require('../../model/user');
 const bcrypt = require('../../config/auth');
 const jwt = require('../../config/generate-token');
+//==================================================================
 
+/**
+ * <p> Realiza autenticação com JWT nesta API </p>
+ * <p> [ATENÇÃO] Informar {@link email} e {@link password} no corpo da requisição HTTP </p>
+ * <p> O match do password será feito no {@this #compare} do bcrypt. Veja linha 23. </p>
+ * 
+ * @author Diego Righi
+ */
 api.post('/', async(req, resp) => {
     const { email, password } = req.body;
     if(!email && !password) return resp.send({ errorMessage : 'Dados de cadastros insuficientes'});
@@ -19,8 +27,7 @@ api.post('/', async(req, resp) => {
         user.password = undefined;
         return resp.send({ 
             message : 'Conectado com sucesso',
-            usuario : user.email,
-            token : jwt(user.email)
+            usuario : user.email
          });
 
     }catch(error){
