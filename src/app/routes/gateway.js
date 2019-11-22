@@ -15,11 +15,7 @@ const request = require('request-promise');
 async function getSecurityToken(callback){
     try{
         await externalHttpRequest.get('http://52.168.167.13:1211/v1/getKey/', (error, response) => {
-        
-            let { publicKey }  = JSON.parse(response.body);
-            let security = publicKey.split('-----');
-
-            return callback(security[securityIndex]);
+            return callback(JSON.parse(response.body));
         });
     }catch(error){
         return resp.send({ errorMessage : 'Ocorreu um erro com a comunicação do Gateway. Codigo : ROUTES/GATEWAY017-141119' });
@@ -30,14 +26,13 @@ api.post('/logon', async(req, resp) => {
     let secure;
     getSecurityToken( (resp) => {
         let { user } = req.body;
-        let password = removeNewline(resp)
+        let { publicKey } = resp;
 
         let requestBody = {
             'user' : user,
-            'password' : password
+            'password' : publicKey
         };
 
-        console.log(password)
         
         const options = {
             method: 'POST',
